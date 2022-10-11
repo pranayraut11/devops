@@ -1,4 +1,5 @@
-## To run CICD setup clone project 
+## To run CICD setup 
+   Clone project from repo 
    ```bash
    git clone https://github.com/pranayraut11/devops.git
    ```
