@@ -31,7 +31,7 @@
 > **Warning**
 > This is temporary solution , If you reboot your system then you will have to re-run above command
 
-## For Gitlab UI browse 
+## For Gitlab UI
 ```
 http://localhost:8080
 ```
@@ -40,6 +40,37 @@ Get password from terminal
 sudo nano gitlab/config/initial_root_password
 ```
 > Username : root 
+
+## For Sonar Qube
+```
+http://localhost:9000/
+```
+>Username : admin <br>
+>Password : admin
+
+## For Nexus Repository
+```
+http://localhost:8081/
+```
+Get password from terminal 
+```
+sudo docker exec -it nexus3  cat /nexus-data/admin.password
+```
+> Username : admin <br>
+
+## Register gitlab-runner
+```
+ sudo docker exec -it gitlab-runner gitlab-runner register --docker-privileged
+```
+#### Enter following details 
+Enter the GitLab instance URL : http://gitlab-ce/ <br>
+Enter the registration token: Get it from Gitlab UI -> Goto Hamburger menu - Admin -> Runners -> Register an instance runner(Copy token) <br>
+Enter a description for the runner: Enter any relevant description <br>
+Enter tags for the runner (comma-separated): any tag name <br>
+Enter optional maintenance note for the runner: can be blank <br>
+Enter an executor: docker <br>
+Enter the default Docker image : maven:3.8-openjdk-11 <br>
+
 
 
 
