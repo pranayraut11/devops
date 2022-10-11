@@ -20,7 +20,7 @@
     Check all Distro <br />
     wsl -l -v <br />
     Convert Distro to WSl2 <br />
-    wsl --set-version <Distro-name> 2 <br />
+    wsl --set-version "Distro-name" 2 <br />
     eg. wsl --set-version Ubuntu-22.04 2
   
   ## Docker
