@@ -12,9 +12,9 @@ services:
       - '8080:80'
       - '8443:443'
     volumes:
-      - $PWD/gitlab/config:/etc/gitlab
-      - $PWD/gitlab/logs:/var/log/gitlab
-      - $PWD/gitlab/data:/var/opt/gitlab
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/logs:/var/log/gitlab
+      - ./gitlab/data:/var/opt/gitlab
     networks:
       - cicd
   gitlab-runner:
@@ -25,7 +25,7 @@ services:
       - web
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - $PWD/gitlab-runner:/etc/gitlab-runner
+      - ./gitlab-runner:/etc/gitlab-runner
     networks:
       - cicd
   SonarQube:
@@ -39,11 +39,11 @@ services:
       SONAR_JDBC_USERNAME: admin
       SONAR_JDBC_PASSWORD: admin
     volumes:
-      - $PWD/sonar/data:/opt/sonarqube/data
-      - $PWD/sonar/extensions:/opt/sonarqube/extensions
-      - $PWD/sonar/logs:/opt/sonarqube/logs
-      - $PWD/sonar/plugins/sonarqube-community-branch-plugin-1.6.0.jar:/opt/sonarqube/extensions/plugins/sonarqube-community-branch-plugin-1.6.0.jar
-      - $PWD/sonar/plugins/sonarqube-community-branch-plugin-1.6.0.jar:/opt/sonarqube/lib/common/sonarqube-community-branch-plugin-1.6.0.jar
+      - ./sonar/data:/opt/sonarqube/data
+      - ./sonar/extensions:/opt/sonarqube/extensions
+      - ./sonar/logs:/opt/sonarqube/logs
+      - ./sonar/plugins/sonarqube-community-branch-plugin-1.6.0.jar:/opt/sonarqube/extensions/plugins/sonarqube-community-branch-plugin-1.6.0.jar
+      - ./sonar/plugins/sonarqube-community-branch-plugin-1.6.0.jar:/opt/sonarqube/lib/common/sonarqube-community-branch-plugin-1.6.0.jar
     ports:
       - '9000:9000'
     networks:
@@ -55,8 +55,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     volumes:
-      - $PWD/postgres/:/var/lib/postgresql
-      - $PWD/postgres/data:/var/lib/postgresql/data
+      - ./postgres/:/var/lib/postgresql
+      - ./postgres/data:/var/lib/postgresql/data
     networks:
       - cicd
 
@@ -65,7 +65,7 @@ services:
     container_name: nexus3
     restart: always
     volumes:
-      - $PWD/nexus/data:/sonatype-work
+      - ./nexus/data:/sonatype-work
     ports:
      - '8081:8081'
      - '8085:8085'
