@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  web:
+  gitlab:
     image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: localhost
@@ -22,7 +22,7 @@ services:
     container_name: gitlab-runner
     restart: always
     depends_on:
-      - web
+      - gitlab
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - ./gitlab-runner:/etc/gitlab-runner
@@ -50,6 +50,7 @@ services:
       - cicd
   db:
     image: 'postgres:12'
+    container_name: db
     restart: always
     environment:
       POSTGRES_USER: sonar
