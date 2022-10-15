@@ -1,0 +1,68 @@
+stages:
+  - compile
+  - test
+  - code-analysis
+  - push-nexus
+  - deploy
+
+image: maven:3.8-openjdk-11
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+maven-compile:
+  stage: compile
+
+  script:
+    - mvn clean compile -s settings.xml -DskipTests=true
+  tags:
+    - volumns
+
+maven-test:
+  stage: test
+  script:
+    - mvn test
+  tags:
+    - volumns
+
+sonar-analysis:
+  stage: code-analysis
+  script:
+    - mvn verify sonar:sonar -s settings.xml -Dsonar.projectKey=demo1  -Dsonar.host.url=http://sonarqube:9000  -Dsonar.login=bd39f24a8ee45bed5a9f3d4db13d9cda90d86e6b -Dsonar.branch.name="$CI_COMMIT_REF_NAME"
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  allow_failure: true
+
+
+push-nexus:
+  stage: push-nexus
+  script:
+    - mvn -s settings.xml -DuniqueVersion=false -DskipsTest deploy
+  artifacts:
+    paths:
+      - target/*.jar
+
+docker-deploy:
+  stage: deploy
+  image: docker:latest
+  script:
+    - docker --version
+    - docker stop firstappcontainer || true && docker rm firstappcontainer || true && docker rmi pranayraut11/gitlabdemo
+    - docker build -t pranayraut11/gitlabdemo .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - docker push pranayraut11/gitlabdemo
+    - docker stop firstappcontainer || true && docker rm firstappcontainer || true
+    - docker run -d --name firstappcontainer -p 9090:8080 pranayraut11/gitlabdemo
+  tags:
+    - volumns

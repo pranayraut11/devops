@@ -1,0 +1,40 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository/>
+    <interactiveMode/>
+    <offline/>
+    <pluginGroups/>
+    <servers>
+        <server>
+            <id>demo-snapshot</id>
+            <username>admin</username>
+            <password>pranay</password>
+        </server>
+        <server>
+            <id>demo-release</id>
+            <username>admin</username>
+            <password>pranay</password>
+        </server>
+        <server>
+            <id>demo-maven-central</id>
+            <username>admin</username>
+            <password>pranay</password>
+        </server>
+        <server>
+            <id>demo-maven-group</id>
+            <username>admin</username>
+            <password>pranay</password>
+        </server>
+    </servers>
+    <mirrors>
+        <mirror>
+            <id>demo-maven-central</id>
+            <name>demo-maven-central</name>
+            <url>http://nexus3:8081/repository/demo-maven-central/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
+    <proxies/>
+    <profiles/>
+    <activeProfiles/>
+</settings>
