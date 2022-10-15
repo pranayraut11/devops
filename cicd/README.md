@@ -1,28 +1,28 @@
 ## This setup will install
-    * Gitlab
-    * Gitlab-runner
-    * Sonar qube
-    * Nexus
+* Gitlab
+* Gitlab-runner
+* Sonar qube
+* Nexus
 
-### To run CICD setup 
-   
-   Clone project from repo 
+### To run CICD setup
+
+Clone project from repo
    ```bash
    git clone https://github.com/pranayraut11/devops.git
    ```
-   Goto folder cicd
+Goto folder cicd
    ```bash
    cd /devops/cicd
    ```
-   Run command
+Run command
    ```bash
    sudo docker compose up -d
    ```
-   Check all container status
+Check all container status
    ```bash
    sudo docker ps 
    ```
-   Check logs for all container
+Check logs for all container
    ```bash
    sudo docker logs -f containe_name
    ```
@@ -32,7 +32,7 @@
    ```
    max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
    ```
-   To resolve this problem execute following command in WSL linux distribution
+To resolve this problem execute following command in WSL linux distribution
    ```bash
    sudo sysctl -w vm.max_map_count=262144
    ```
@@ -47,7 +47,7 @@ Get password from terminal
 ```
 sudo nano gitlab/config/initial_root_password
 ```
-> Username : root 
+> Username : root
 
 ## For Sonar Qube
 ```
@@ -60,7 +60,7 @@ http://localhost:9000/
 ```
 http://localhost:8081/
 ```
-Get password from terminal 
+Get password from terminal
 ```
 sudo docker exec -it nexus3  cat /nexus-data/admin.password
 ```
@@ -70,7 +70,7 @@ sudo docker exec -it nexus3  cat /nexus-data/admin.password
 ```
  sudo docker exec -it gitlab-runner gitlab-runner register --docker-privileged
 ```
-#### Enter following details 
+#### Enter following details
 ```
    Enter the GitLab instance URL : http://gitlab-ce/
    Enter the registration token: Get it from Gitlab UI -> Goto Hamburger menu - Admin -> Runners -> Register an instance runner(Copy token)
