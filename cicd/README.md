@@ -64,14 +64,15 @@ sudo docker exec -it nexus3  cat /nexus-data/admin.password
  sudo docker exec -it gitlab-runner gitlab-runner register --docker-privileged
 ```
 #### Enter following details 
-Enter the GitLab instance URL : http://gitlab-ce/ <br>
-Enter the registration token: Get it from Gitlab UI -> Goto Hamburger menu - Admin -> Runners -> Register an instance runner(Copy token) <br>
-Enter a description for the runner: Enter any relevant description <br>
-Enter tags for the runner (comma-separated): any tag name <br>
-Enter optional maintenance note for the runner: can be blank <br>
-Enter an executor: docker <br>
-Enter the default Docker image : maven:3.8-openjdk-11 <br>
-
+```
+Enter the GitLab instance URL : http://gitlab-ce/
+Enter the registration token: Get it from Gitlab UI -> Goto Hamburger menu - Admin -> Runners -> Register an instance runner(Copy token)
+Enter a description for the runner: Enter any relevant description
+Enter tags for the runner (comma-separated): any tag name
+Enter optional maintenance note for the runner: can be blank
+Enter an executor: docker
+Enter the default Docker image : maven:3.8-openjdk-11
+```
 
 
 
