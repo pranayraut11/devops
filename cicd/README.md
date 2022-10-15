@@ -1,4 +1,11 @@
-## To run CICD setup 
+## This setup will install
+    * Gitlab
+    * Gitlab-runner
+    * Sonar qube
+    * Nexus
+
+### To run CICD setup 
+   
    Clone project from repo 
    ```bash
    git clone https://github.com/pranayraut11/devops.git
@@ -65,13 +72,13 @@ sudo docker exec -it nexus3  cat /nexus-data/admin.password
 ```
 #### Enter following details 
 ```
-Enter the GitLab instance URL : http://gitlab-ce/
-Enter the registration token: Get it from Gitlab UI -> Goto Hamburger menu - Admin -> Runners -> Register an instance runner(Copy token)
-Enter a description for the runner: Enter any relevant description
-Enter tags for the runner (comma-separated): any tag name
-Enter optional maintenance note for the runner: can be blank
-Enter an executor: docker
-Enter the default Docker image : maven:3.8-openjdk-11
+   Enter the GitLab instance URL : http://gitlab-ce/
+   Enter the registration token: Get it from Gitlab UI -> Goto Hamburger menu - Admin -> Runners -> Register an instance runner(Copy token)
+   Enter a description for the runner: Enter any relevant description
+   Enter tags for the runner (comma-separated): any tag name
+   Enter optional maintenance note for the runner: can be blank
+   Enter an executor: docker
+   Enter the default Docker image : maven:3.8-openjdk-11
 ```
 
 
