@@ -37,3 +37,27 @@ kubectl get service
 ```
 kubectl get nodes -o wide
 ```
+> Note : If you are running minikube cluster on wsl(ubuntu) then you will have to use port forwarding.
+```
+kubectl port-forward service/ingress-demo 31866:8080
+```
+> Note : kubectl port-forward does not return.
+
+To access application on browser 
+```
+http://localhost:31866
+```
+
+### Now apply ingress configuration
+```
+kubectl apply -f ingress.yaml
+```
+#### Add "hello-worldapp.com" to hosts file 
+```
+path to hosts file : "C:\Windows\System32\drivers\etc"
+Eg : 127.0.0.1 hello-worldapp.com
+```
+Check browser
+```
+http://hello-worldapp.com:31866/v1
+```
