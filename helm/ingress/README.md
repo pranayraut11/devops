@@ -1,10 +1,14 @@
-### Enable ingress controller in minikube
+### Enable ingress controller
 ```
-minikube addons enable ingress
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
+```
+Expose nodePort controller 
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/baremetal/deploy.yaml
 ```
 #### Check status
 ```
-kubectl get pods -n ingress-nginx
+kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx
 ```
 The output is similar to
 ```
@@ -37,7 +41,7 @@ kubectl get service
 ```
 kubectl get nodes -o wide
 ```
-> Note : If you are running minikube cluster on wsl(ubuntu) then you will have to use port forwarding.
+> Note : If you are running minikube/kind cluster on wsl(ubuntu) then you will have to use port forwarding.
 ```
 kubectl port-forward service/ingress-demo 31866:8080
 ```
