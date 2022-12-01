@@ -36,6 +36,8 @@ http://localhost:31866
 ```
 kubectl apply -f ingress.yaml
 ```
+> Note : After creating ingress for service, port forward not is required.You can access application directly from browser.
+
 #### Add "hello-worldapp.com" to hosts file 
 ```
 path to hosts file : "C:\Windows\System32\drivers\etc"
@@ -43,5 +45,5 @@ Eg : 127.0.0.1 hello-worldapp.com
 ```
 Check browser
 ```
-http://hello-worldapp.com:31866/v1
+http://hello-worldapp.com/v1
 ```
