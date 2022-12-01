@@ -37,3 +37,25 @@ Verify cluster
 ```
 kubectl cluster-info --context kind-kind
 ```
+### Enable ingress controller for "kind" cluster
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+```
+Now the Ingress is all setup. Wait until is ready to process requests running: 
+```
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+```
+#### Check status
+```
+kubectl get pods --namespace ingress-nginx
+```
+The output is similar to
+```
+NAME                                        READY   STATUS      RESTARTS    AGE
+ingress-nginx-admission-create-g9g49        0/1     Completed   0          11m
+ingress-nginx-admission-patch-rqp78         0/1     Completed   1          11m
+ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
+```
