@@ -6,10 +6,10 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
 
-### Start cluster
+### Start cluster (with cluster configuration)
 
 ```
-kind create cluster
+kind create cluster --config=cluster-config.yml
 ```
 
 ### Install kubectl 
