@@ -1,23 +1,3 @@
-### Enable ingress controller
-```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
-```
-Expose nodePort controller 
-```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/baremetal/deploy.yaml
-```
-#### Check status
-```
-kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx
-```
-The output is similar to
-```
-NAME                                        READY   STATUS      RESTARTS    AGE
-ingress-nginx-admission-create-g9g49        0/1     Completed   0          11m
-ingress-nginx-admission-patch-rqp78         0/1     Completed   1          11m
-ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
-```
-
 ### Run example
 ```
 kubectl apply -f deployment.yaml
