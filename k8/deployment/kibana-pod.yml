@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kibana-pod
+  labels: 
+    name: kibana-pod
+    app: elk-stack
+
+spec:
+  containers:
+    - name: kibana-pod
+      image: kibana:7.16.2

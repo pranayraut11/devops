@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana-deployment
+  labels:
+    name: kibana-deployment
+    app: elk-stack
+
+spec:
+  template:
+    metadata:
+      name: kibana-pod
+      labels:
+        name: kibana-pod
+        app: elk-stack
+    spec:
+      containers:
+        - name: kibana-pod
+          image: kibana:7.16.2
+          env:
+          - name: ELASTICSEARCH_URL
+            value: "http://elasticsearch:9200"
+
+  selector:
+    matchLabels:
+      name: kibana-pod
+      app: elk-stack

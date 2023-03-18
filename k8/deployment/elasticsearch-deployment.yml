@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch-deployment
+  labels:
+    name: elasticsearch-deployment
+    app: elk-stack
+
+spec:
+  template:
+    metadata:
+      name: elasticsearch-pod
+      labels:
+        name: elasticsearch-pod
+        app: elk-stack
+    spec:
+      containers:
+        - name: elasticsearch
+          image: elasticsearch:7.16.2
+          env:
+          - name: ES_JAVA_OPTS
+            value: "-Xmx256m -Xms256m"
+          - name: xpack.security.enabled
+            value: "false"
+          - name: discovery.type
+            value: "single-node"
+  selector:
+    matchLabels:
+      name: elasticsearch-pod
+      app: elk-stack

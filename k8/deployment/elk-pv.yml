@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elk-persistentvolume
+  labels:
+    name: elk-persistentvolume
+
+spec:
+ accessModes:
+   - ReadWriteOnce
+ capacity:
+    storage: 1Gi
+ hostPath:
+  path: /data/elk/
+ storageClassName: manual

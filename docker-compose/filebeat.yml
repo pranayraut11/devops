@@ -1,0 +1,9 @@
+filebeat.inputs:
+- type: filestream
+  id: my-application-logs
+  enabled: true
+  paths:
+    - /var/log/app_logs/*.log
+
+output.elasticsearch:
+  hosts: 'elasticsearch:9200'

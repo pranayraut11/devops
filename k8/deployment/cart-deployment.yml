@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment
+  labels:
+    name: cart-deployment
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: cart-pod
+      labels:
+        name: cart-pod
+        app: ecom
+    spec:
+      containers:
+        - name: cart
+          image: pranayraut11/cart-app
+          env:
+            - name: LOGGING_FILE_PATH
+              value: logs
+          volumeMounts:
+            - mountPath: /logs/
+              name: elk-data-storage
+      
+        - name: filebeat-pod
+          image: docker.elastic.co/beats/filebeat:7.16.2
+          args: [
+            "-c", "/etc/filebeat/filebeat.yml",
+            "-e"
+          ]
+          volumeMounts:
+          - mountPath: /etc/filebeat/
+            name: elk-filebeat-cfgmap
+          - mountPath: /logs/
+            name: elk-data-storage    
+              
+      volumes:
+        - name: elk-data-storage
+          emptyDir: {}
+        - name: elk-filebeat-cfgmap
+          configMap:
+            name: elk-filebeat-cfgmap
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml
+
+  replicas: 1
+  selector:
+    matchLabels:
+      name: cart-pod
+      app: ecom
+
+
+
