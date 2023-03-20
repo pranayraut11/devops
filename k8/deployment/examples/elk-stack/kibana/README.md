@@ -64,7 +64,4 @@ ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
 
 If output is not similar to above .
 Then follow the steps to enable ingress.
-[Ingress installation]
-(http://www.google.fr/ "Named link title")
-
-### After successfully enabled ingress 
+[Ingress installation](https://github.com/pranayraut11/devops/tree/master/k8 )
