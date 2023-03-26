@@ -1,0 +1,14 @@
+deploymentName : kibana-deployment
+deploymentLabel : kibana
+
+replicaCount: 1
+
+image:
+  repository: kibana
+  tag: 7.16.2
+
+service:
+  type: ClusterIP
+  port: 5601
+  targetPort: 5601
+

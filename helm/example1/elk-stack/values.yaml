@@ -1,0 +1,19 @@
+elasticsearch:
+  enabled: true
+  service:
+    xpack: 
+      enabled: true
+    envVars:
+      - name: ES_JAVA_OPTS
+        value: -Xmx256m -Xms256m
+      - name: discovery.type
+        value: single-node
+      - name: xpack.security.enabled
+        value: false
+
+kibana:
+  enabled: true  
+  service:
+    envVars:
+      - name: ELASTICSEARCH_URL
+        value: http://elasticsearch:9200
