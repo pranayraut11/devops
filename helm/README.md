@@ -52,3 +52,15 @@ Upgrade helm chart
 ```
 helm upgrade mysql bitnami/mysql --values "path-to-value.yaml-file"
 ```
+
+
+### Error case
+
+K8 not able to pull image (timeout issue)
+Resolution : Update the file  /etc/resolv.conf
+Add following content 
+```
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+And restart docker
