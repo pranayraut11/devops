@@ -56,11 +56,11 @@
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs)     stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     ```
   
-  * Install Docker and Docker-compose
+  * Update the packges again
     ```
     sudo apt-get update
     ```
-  * If you see errors like 
+    If you see errors like 
     ```
      Temporary failure resolving 'download.docker.com'
      Ign:2 http://archive.ubuntu.com/ubuntu jammy InRelease
@@ -72,7 +72,7 @@
       nameserver 8.8.8.8
       nameserver 8.8.4.4
      ```
-    
+  * Install docker and docker compose
     ```
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
     ```
