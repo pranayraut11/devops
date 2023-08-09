@@ -60,6 +60,19 @@
     ```
     sudo apt-get update
     ```
+  * If you see errors like 
+    ```
+     Temporary failure resolving 'download.docker.com'
+     Ign:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+     Err:3 http://security.ubuntu.com/ubuntu jammy-security InRelease
+     Temporary failure resolving 'security.ubuntu.com
+    ```
+    Update the file /etc/resolv.conf Add following content
+   ```
+    nameserver 8.8.8.8
+    nameserver 8.8.4.4
+   ```
+    
     ```
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
     ```
