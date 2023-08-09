@@ -68,10 +68,10 @@
      Temporary failure resolving 'security.ubuntu.com
     ```
     Update the file /etc/resolv.conf Add following content
-   ```
-    nameserver 8.8.8.8
-    nameserver 8.8.4.4
-   ```
+     ```
+      nameserver 8.8.8.8
+      nameserver 8.8.4.4
+     ```
     
     ```
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
