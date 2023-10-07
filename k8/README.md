@@ -59,3 +59,5 @@ ingress-nginx-admission-create-g9g49        0/1     Completed   0          11m
 ingress-nginx-admission-patch-rqp78         0/1     Completed   1          11m
 ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
 ```
+That's It . To install helm https://github.com/pranayraut11/devops/blob/master/helm/README.md
+
