@@ -1,0 +1,53 @@
+version: "3"
+services:
+  webapp:
+    image: pranayraut11/sample-web-app
+    container_name: webapp
+    ports:
+      - 8080:8080
+    networks:
+      - devops  
+  prometheus:
+    image: prom/prometheus:v2.48.1
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - devops
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    ports:
+      - "16686:16686" # the jaeger UI 
+      - "4317:4317" # the OpenTelemetry collector grpc 
+      - 14269:14269
+      - 16687:16687
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - devops  
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USER_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=localhost
+    ports:
+      - 3000:3000  
+    networks:
+      - devops
+    volumes:
+      - ./data/grafana/:/var/lib/grafana
+
+networks:
+  devops:
+    name: devops
+    driver: bridge
+

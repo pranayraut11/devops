@@ -1,0 +1,20 @@
+image: jaegertracing/all-in-one:latest
+replicaCount: 1
+
+ingress:
+  enabled: false
+
+service:
+  name: jaeger
+  type: NodePort
+  ports:
+   - name: jaeger-ui
+     internalPort: 16686
+     externalPort: 16686
+     protocol: TCP
+     nodePort: 30002
+   - name: jaeger-collector
+     internalPort: 4317
+     externalPort: 4317
+     protocol: TCP
+     nodePort: 30003

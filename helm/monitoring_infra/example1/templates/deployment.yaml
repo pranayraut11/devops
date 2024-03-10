@@ -1,0 +1,59 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata: {{ $fullname := printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
+  name: {{ .Values.service.name }}
+  labels:
+    app: {{ .Values.service.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.service.name }}
+  replicas: {{ default 1 .Values.replicaCount | int }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service.name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            {{- range .Values.service.ports }}
+            - containerPort: {{ .internalPort }}
+              protocol: {{ .protocol }}
+            {{- end -}}
+          {{- if .Values.commands.enabled }}
+          args:
+           {{- range .Values.command }}
+            - {{ .args }}
+           {{- end -}}  
+          {{- end -}}
+          {{- if .Values.env.enabled }}
+          env:
+            {{- range .Values.env.envVars }}
+            - name: {{ .name }}
+              value: {{ .value | quote}}
+            {{- end -}} 
+          {{- end -}}
+          
+      {{- if .Values.volume.enabled }}   
+          volumeMounts:
+            - name: prometheus-value
+              mountPath: {{ .Values.volume.mountPath }}
+            - name: prometheus-storage-volume
+              mountPath: /prometheus/  
+              
+          
+      volumes:
+        - name: prometheus-value
+          configMap:
+            name: prometheus-value
+            items:
+              - key: prometheus.yaml
+                path: prometheus.yaml
+        - name: prometheus-storage-volume
+          emptyDir: {}        
+      {{- end -}}           
+{{- end -}}

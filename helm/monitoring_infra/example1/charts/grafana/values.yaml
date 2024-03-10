@@ -1,0 +1,16 @@
+image: grafana/grafana
+replicaCount: 1
+
+ingress:
+  enabled: true
+
+service:
+  name: grafana
+  type: NodePort
+  exposePort: 3000
+  ports:
+    - name: grafana-ui
+      externalPort: 3000
+      internalPort: 3000
+      protocol: "TCP"
+      nodePort: 30004

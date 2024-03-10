@@ -1,0 +1,35 @@
+
+jaeger:
+  enabled: true
+  volume:
+    enabled: false
+  commands:
+    enabled: false
+  env:
+    enabled: true  
+    envVars:
+      - name: COLLECTOR_OTLP_ENABLED
+        value: 'true'
+
+prometheus:
+  enabled: true
+  commands:
+    enabled: true
+  command:
+      - args: "--storage.tsdb.retention.time=12h"
+      - args: "--config.file=/etc/prometheus/prometheus.yml"
+      - args: "--storage.tsdb.path=/prometheus/"  
+  env:
+    enabled: false
+  volume:
+    enabled: true
+    mountPath: "/etc/prometheus/prometheus.yaml"
+
+grafana:
+  enabled: true
+  commands:
+    enabled: false
+  env:
+    enabled: false  
+  volume:
+    enabled: false

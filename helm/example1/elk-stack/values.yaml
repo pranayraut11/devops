@@ -10,6 +10,12 @@ elasticsearch:
         value: single-node
       - name: xpack.security.enabled
         value: false
+      # - name: xpack.security.authc.api_key.enabled
+      #   value: true
+      # - name: xpack.monitoring.collection.enabled
+      #   value: true  
+      - name : ELASTIC_PASSWORD
+        value: password
 
 kibana:
   enabled: true  
@@ -17,3 +23,7 @@ kibana:
     envVars:
       - name: ELASTICSEARCH_URL
         value: http://elasticsearch:9200
+      - name: ELASTICSEARCH_USERNAME
+        value: "elastic"
+      - name: ELASTICSEARCH_PASSWORD
+        value: "password"

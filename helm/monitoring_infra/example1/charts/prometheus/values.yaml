@@ -1,0 +1,15 @@
+image: prom/prometheus
+replicaCount: 1
+
+ingress:
+  enabled: true
+service:
+  name: prometheus
+  type: NodePort
+  exposePort: 9090
+  ports:
+   - name: prometheus-ui
+     internalPort: 9090
+     externalPort: 9090
+     protocol: TCP
+     nodePort: 30001
