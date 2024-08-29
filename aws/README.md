@@ -10,7 +10,7 @@
 * To attach AdministratorAccess policy to the user you will have to create a new group and attach the policy to the group.
 * After creating user group attach the user to the group.
 * Create secret key and access key for the user and save it in your local machine.
-* Note down your region and account id.
+* Note down your region and account id(ARN).
 ### Configure AWS CLI with the secret key and access key.
 ```bash
 aws configure
@@ -54,6 +54,67 @@ Your cluster is ready to use.
 
 * You can deploy your applications to the cluster using kubectl or helm.
 * But applications deployed using kubectl will not be highly available to outside world.
-* To make the applications highly available you will have to create a load balancer and attach it to the service.
+* To make the applications available you will have to create a load balancer and attach it to the service.
 
-### Create a Load Balancer
+### Make Subnet discoverable by Adding tags to VPC
+* Goto AWS console and search for VPC.
+* Select the VPC created by eksctl.
+* Add the following tags to the private subnets.
+```yaml
+Key: kubernetes.io/cluster/cluster-name
+Value: shared
+```
+* This will allow the cluster to use the VPC.
+### Create Service account for load balancer controller
+### What is service account?
+#### A service account is used to access the AWS resources from the EKS cluster.
+
+### Create IAM policy for the service account
+Download the IAM policy from the following link
+```bash
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.1/docs/install/iam_policy.json
+```
+Create IAM policy using the following command
+```bash
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam-policy.json
+```
+Check the policy on AWS console.
+Go to AWS console and search for IAM->Policies->AWSLoadBalancerControllerIAMPolicy
+
+### Create IAM OIDC provider
+```bash
+eksctl utils associate-iam-oidc-provider \
+    --region AWS_REGION \
+    --cluster cluster-name \
+    --approve
+```
+### Create IAM role for the service account
+```bash
+eksctl create iamserviceaccount \
+--cluster=eks-cluster \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::ARN_NUMBER:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--approve
+```
+Use the ARN(Account ID) which is created in the previous step.
+
+#### Check the service account 
+```bash
+kubectl get sa -n kube-system
+```
+
+AWS load balancer controller requires a cert manager to create the certificate for the load balancer.
+### Install cert manager
+```bash
+kubectl apply \
+    --validate=false \
+    -f https://github.com/jetstack/cert-manager/releases/download/v1.5.4/cert-manager.yaml
+```
+Check the status of the cert manager
+```bash
+kubectl get pods -n cert-manager 
+```
